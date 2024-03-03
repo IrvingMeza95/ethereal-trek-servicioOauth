@@ -71,7 +71,7 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
 				String errorMaxIntentos = String.format("El usuario %s des-habilitado por máximos intentos.", usuario.getEmail());
 				log.error(errorMaxIntentos);
 				errors.append(" - " + errorMaxIntentos);
-				usuario.setEnable(false);
+				usuario.setEnabled(false);
 			}
 			
 			usuarioService.update(usuario, usuario.getId());

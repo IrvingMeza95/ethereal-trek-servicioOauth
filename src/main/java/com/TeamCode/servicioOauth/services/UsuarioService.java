@@ -39,7 +39,7 @@ public class UsuarioService implements IUsuarioService, UserDetailsService {
 
 			log.info("Usuario autenticado: " + username);
 
-			return new User(usuario.getEmail(), usuario.getPassword(), usuario.getEnable(), true, true, true,
+			return new User(usuario.getEmail(), usuario.getPassword(), usuario.getEnabled(), true, true, true,
 					authorities);
 
 		} catch (FeignException e) {
