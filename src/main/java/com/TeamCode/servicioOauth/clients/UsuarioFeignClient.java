@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name="servicioUsuarios")
+@FeignClient(name="gestionEmpCli")
 public interface UsuarioFeignClient {
 	@GetMapping("/auth/{param}")
 	Usuario buscar(@RequestParam String param);
