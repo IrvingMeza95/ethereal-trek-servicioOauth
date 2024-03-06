@@ -3,6 +3,7 @@ package com.TeamCode.servicioOauth.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import brave.Tracer;
 import com.TeamCode.servicioOauth.models.Usuario;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,8 @@ public class UsuarioService implements IUsuarioService, UserDetailsService {
 
 	@Autowired
 	private UsuarioFeignClient client;
+	@Autowired
+	private Tracer tracer;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -45,7 +48,7 @@ public class UsuarioService implements IUsuarioService, UserDetailsService {
 		} catch (FeignException e) {
 			String error = "Error en el login, no existe el usuario '" + username + "' en el sistema";
 			log.error(error);
-
+			tracer.currentSpan().tag("mensaje.error", error + ": " + e.getMessage());
 			throw new UsernameNotFoundException(error);
 		}
 	}

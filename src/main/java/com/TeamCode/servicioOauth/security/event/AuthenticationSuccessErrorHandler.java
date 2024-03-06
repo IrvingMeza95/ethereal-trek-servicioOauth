@@ -1,5 +1,6 @@
 package com.TeamCode.servicioOauth.security.event;
 
+import brave.Tracer;
 import com.TeamCode.servicioOauth.models.Usuario;
 import com.TeamCode.servicioOauth.services.IUsuarioService;
 import org.slf4j.Logger;
@@ -21,7 +22,9 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
 
 	@Autowired
 	private IUsuarioService usuarioService;
-	
+	@Autowired
+	private Tracer tracer;
+
 	@Override
 	public void publishAuthenticationSuccess(Authentication authentication) {
 		
@@ -75,7 +78,8 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
 			}
 			
 			usuarioService.update(usuario, usuario.getId());
-			
+
+			tracer.currentSpan().tag("mensaje.error", errors.toString());
 		} catch (FeignException e) {
 			log.error(String.format("El usuario %s no existe en el sistema", authentication.getName()));
 		}
