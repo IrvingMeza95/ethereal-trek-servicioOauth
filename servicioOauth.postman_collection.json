@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "autenticacion",
+			"name": "autenticación con credenciales",
 			"request": {
 				"auth": {
 					"type": "basic",
@@ -31,12 +31,12 @@
 					"formdata": [
 						{
 							"key": "username",
-							"value": "8787912322",
+							"value": "usuario",
 							"type": "text"
 						},
 						{
 							"key": "password",
-							"value": "123456",
+							"value": "contraseña",
 							"type": "text"
 						},
 						{
@@ -59,7 +59,61 @@
 						"oauth",
 						"token"
 					]
-				}
+				},
+				"description": "End point para la autenticación de aplicacion cliente, usuarios y a partir de ello retornar un JWT token encriptado.\n\nEn el basic auth se enviarián las credenciales de la aplicación cliente y en e form-data del body las credenciales del usuario espeficicando el 'grant_type' de tipo 'password'."
+			},
+			"response": []
+		},
+		{
+			"name": "autenticación con refresh token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "12345",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "front_app",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "refresh_token",
+							"value": "token",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "refresh_token",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/security/oauth/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"security",
+						"oauth",
+						"token"
+					]
+				},
+				"description": "End point para generar un token de acceso mediante el 'refresh_token'.\n\nEn el basic auth se enviarián las credenciales de la aplicación cliente y en e form-data del body el refresh token especificando el 'grant_type' de tipo 'refresh_token'."
 			},
 			"response": []
 		}
