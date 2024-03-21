@@ -18,4 +18,6 @@ public class Usuario {
     private Boolean enabled;
     private Integer intentos;
     private List<Role> roles;
+    private String pais;
+    private String codigoDeLlamada;
 }
